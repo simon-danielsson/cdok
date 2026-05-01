@@ -1,0 +1,403 @@
+<!DOCTYPE html><html lang="en"><head><style>@font-face {
+    font-family: 'maple';
+    src: url('static/MapleMono.ttf') format('truetype'),
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --fg_1:  #AAB3C0;
+    --fg_2: #6e6e87;
+    --mg_1: #40404f;
+    --bg_1: #2a2a33;
+    --bg_2: #25252d;
+    --acc_1: #E7B589;
+    --acc_2: #ABABCE;
+    --acc_3: #C48283;
+}
+html,body {
+    font-family: "maple", monospace !important;
+    color: var(--fg_1);
+    background:var(--bg_2);
+}
+    .item-nametype {
+    display: inline-flex;
+    gap: 10px;
+}
+
+/* Basic table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 10px 10px 0px;
+    font-size: 14px;
+    text-align: left;
+}
+
+/* Table header */
+th {
+    background-color: var(--mg_1);
+    color: var(--fg_1);
+    padding: 10px;
+}
+
+/* id field */
+th:nth-child(1),
+td:nth-child(1) {
+    width: 40px;
+    max-width: 40px;
+}
+
+/* name field */
+th:nth-child(3),
+td:nth-child(3) {
+    width: 20%;
+    max-width: 20%;
+}
+/* type field */
+th:nth-child(4),
+td:nth-child(4) {
+    width: 10%;
+    max-width: 10%;
+}
+
+/* path field */
+th:nth-child(2),
+td:nth-child(2) {
+    display: none;
+}
+
+/* tags field */
+th:nth-child(6),
+td:nth-child(6) {
+    width: 30%;
+    max-width: 30%;
+}
+
+.file-section>* {
+    text-align: left;
+    background-color: var(--bg_1);
+    color: var(--acc_1);
+    font-size: 16px;
+    border-bottom: 3px solid var(--fg_2);
+}
+
+/* Table cells */
+td {
+    padding: 10px;
+    color: var(--fg_1);
+    border-bottom: 1px solid var(--fg_2);
+}
+
+/* Hover effect */
+tr:hover {
+    background-color: var(--bg_1);
+    color: var(--fg_1);
+    <!-- cursor: pointer; -->
+}
+/* Optional: border around table */
+table, th, td {
+    border: 1px solid var(--fg_2);
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 4px;
+}
+.header-search {
+    justify-content: space-between;
+    align-items: center;
+}
+hr {
+    color: var(--mg_1);
+}
+input {
+    background-color: var(--mg_1);
+    padding: 8px;
+    width: 400px;
+    border: none;
+    color: var(--acc_1);
+    font-family: "maple", monospace !important;
+    border: 1px solid var(--fg_2);
+    /* border-radius: 10px; */
+}
+input::placeholder {
+    color: var(--fg_2);
+
+}
+
+.header-right {
+    margin-left: auto;
+    text-align: right;
+    justify-content: space-between;
+    align-items: center;
+}
+.header-right a{
+    color: var(--acc_1);
+}
+p, a {
+    color: var(--fg_1);
+}
+
+/* ========= item page ========= */
+
+.item-name {
+    color: var(--acc_2);
+}
+.item-type {
+    color: var(--acc_3);
+
+}
+.item-code, code {
+    background-color: var(--bg_1);
+}
+code {
+    background-color: var(--bg_1) !important;
+    font-size: 16px;
+    display: inline-block;
+        padding: 20px 20px;
+
+}
+pre[class*="language-"] {
+  background: none !important;
+  width: 100%;
+  box-shadow: 0;
+  border: none !important;
+  padding: 0; /* optional */
+  text-shadow: none !important;
+}
+/*.token.variable{ color: #fff; }*/
+.token {
+  background: none !important;
+}
+
+code[class*="language-"] {
+ /* color: var(--fg_1) !important;*/
+  background: var(--bg_1) !important;
+  text-decoration: none !important;
+  text-shadow: none !important;
+}
+.item-tags {
+        color: var(--acc_1);
+
+}
+.item-desc {
+        color: var(--acc_2);
+}
+.token.comment { color: var(--fg_2) !important; }
+.token.keyword { color: var(--acc_1) !important; }
+.token.string  { color: var(--acc_2) !important; }
+.token.number  { color: #f38ba8 !important; }
+.token.function { color: var(--acc_3) !important; }
+.token.operator,
+.token.punctuation {
+color: var(--fg_1) !important;
+}
+    tr:focus {
+    outline: 2px solid var(--acc_1);
+    background-color: var(--bg_1);
+}
+</style>
+</head>
+<body>
+<header>
+    <div class="header-search">
+        <p>search: 's' or '/'</p>
+        <input
+                id="search"
+                type="search"
+                placeholder="id, path, type, name, description..."
+                autocomplete="off"
+                >
+    </div>
+
+<div class="header-right">
+<p>
+<a
+href="index.html">return to index</a>
+</p>
+<p>~/dev/c/cenv_toolkit/gen_html</p>
+</div>
+</header>
+<hr>
+<p class="item-tags">~/dev/c/cenv_toolkit/src/cmd.c</p>
+<div class="item-nametype">
+<h2 class="item-type">function</h2>
+<h2 class="item-name">cmd_tidy</h2>
+</div>
+<p class="item-tags"></p>
+<div class="item-code">
+<pre><code class="language-c">void cmd_tidy(TomlChIt *it) {
+    // find . \(
+    // -name ".DS_Store"
+    // -o -name "nvim.log"
+    // -o -name "*.o"
+    // -o -name "*.obj"
+    // -o -name "a.out"
+    // -o -name "__pycache__"
+    // \) -print -exec rm -rf {} +
+
+    printf("\nTidying up codebase...\n\n");
+
+    const char **arr = NULL;
+    size_t arr_count = 0;
+    if (TomlChIt_get_string_array(it, "toolkit", "tidy_files", &arr,
+                &arr_count) != TOML_OK) {
+        ERROR("key \"tidy_files\" not found in cenv.toml");
+    }
+
+    static const int size = 512;
+    char tidy_cmd[size * 4];
+    tidy_cmd[0] = '\0';
+    strncat(tidy_cmd, "find . \\(", size);
+
+    bool first = true;
+    for (size_t i = 0; i < arr_count; i++) {
+        char buf[128];
+        if (first) {
+            first = false;
+            snprintf(buf, sizeof(buf), " -name \"%s\" ", arr[i]);
+        } else {
+            snprintf(buf, sizeof(buf), "-o -name \"%s\" ", arr[i]);
+        }
+        strncat(tidy_cmd, buf, size);
+    }
+
+    strncat(tidy_cmd, "\\) -print -exec rm -rf {} +", size);
+
+    // char output[CMD_BUF];
+    // run_cmd(output, tidy_cmd);
+    system(tidy_cmd);
+    printf("\nDone!\n");
+}
+</code></pre>
+</div>
+<footer>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const search = document.querySelector("#search");
+        const tbody = document.querySelector("tbody");
+
+        if (!search) return;
+
+        const onIndexPage = window.location.pathname.endsWith("index.html") ||
+            window.location.pathname.endsWith("/");
+
+        if (onIndexPage) {
+    search.focus({ preventScroll: true });
+            search.focus();
+            search.select();
+            window.scrollTo(0,0);
+        }
+
+        search.addEventListener("focus", () => {
+            if (!onIndexPage) {
+                window.location.href = "index.html#search";
+            }
+        });
+
+        document.addEventListener("keydown", event => {
+            const active = document.activeElement;
+            const isTyping = active && (
+                active.tagName === "INPUT" ||
+                active.tagName === "TEXTAREA" ||
+                active.isContentEditable
+            );
+
+            if (!isTyping && (event.key === "s" ||
+                event.key === "/")) {
+                event.preventDefault();
+
+                if (onIndexPage) {
+                    search.focus();
+                    search.select();
+                } else {
+                    window.location.href = "index.html#search";
+                }
+            }
+        });
+
+        if (!tbody) return;
+
+        const rows = [...tbody.querySelectorAll("tr")];
+
+        for (const row of rows) {
+            row.tabIndex = 0;
+
+            row.addEventListener("keydown", event => {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    row.click();
+                }
+            });
+        }
+
+        /* id, path, name, header */
+        const searchableColumns = [0, 1, 3, 2, 4, 5];
+
+        function getSections() {
+            const sections = [];
+            let currentSection = null;
+
+            for (const row of rows) {
+                if (row.classList.contains("file-section")) {
+                    currentSection = {
+                        header: row,
+                        rows: []
+                    };
+                    sections.push(currentSection);
+                } else if (currentSection) {
+                    currentSection.rows.push(row);
+                }
+            }
+
+            return sections;
+        }
+
+        function rowMatches(row, query) {
+            const cells = [...row.children];
+
+            return searchableColumns.some(index => {
+                return cells[index]?.textContent
+                    .toLowerCase().includes(query);
+            });
+        }
+
+        function updateSearch() {
+            const query = search.value.trim().toLowerCase();
+            const sections = getSections();
+
+            for (const section of sections) {
+                let hasVisibleRows = false;
+
+                for (const row of section.rows) {
+                    const matches = query === "" ||
+                        rowMatches(row, query);
+
+                    row.hidden = !matches;
+                    row.tabIndex = matches ? 0 : -1;
+
+                    if (matches) {
+                        hasVisibleRows = true;
+                    }
+                }
+
+                section.header.hidden = query !== "" &&
+                    !hasVisibleRows;
+                section.header.tabIndex = section.header.hidden ? -1 : 0;
+            }
+        }
+
+        search.addEventListener("input", updateSearch);
+
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-c.min.js"></script>
+</footer>
+
+</body></html>
