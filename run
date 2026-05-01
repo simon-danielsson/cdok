@@ -59,6 +59,22 @@ build_debug() {
     $debug_dir/$bin_name -s $root/src -d $root/gen -o
 }
 
+release_dir="$root/build/release"
+mkdir -p $release_dir
+build_release() {
+    IFS=" "
+    cd $root/tools/nob/; cc nob.c -o nob
+    c_flags="${c_flags_release[*]}"
+    ./nob "$root/src" $c_flags
+
+    # bin_name=$name-$VERSION-release-$git_head_hash_short
+    bin_name=$name
+    mv main $release_dir/$bin_name
+    # cd $root
+    # rm -rf $root/gen; mkdir -p $root/gen
+    # $release_dir/$bin_name -s $root/src -d $root/gen -o
+}
+
 if [ -z "$1" ]; then
     # if no arguments
   build_debug

@@ -7,8 +7,8 @@
   
 <p align="center">
   <a href="#info">Info</a> •
+  <a href="#install">Usage</a> •
   <a href="#usage">Usage</a> •
-  <a href="#toolkit">Toolkit</a> •
   <a href="#license">License</a>
 </p>  
   
@@ -33,12 +33,36 @@ Prerequisites:
 cdok relies on [nob.h](https://github.com/tsoding/nob.h) (a header-only
 build-system) for compilation.  
   
+<div id="install"></div>
+  
+## Install
+  
+``` terminal
+git clone https://github.com/simon-danielsson/cdok.git
+cd cdok
+run release
+
+# now you have an executable ready to use: ./build/release/cdok
+# add this to a binary path or bash alias
+```
+  
 ---
 <div id="usage"></div>
   
 ## Usage
   
-Explained within the following example code:
+``` terminal
+cdok -s <source file(s)> -d <dest path> -o [open directly in browser]
+
+The destination path is where the generated html files will be placed.
+
+example:
+cd ./my_project
+mkdir -p .cdok-gen
+cdok -s ./src -d ./.cdok-gen -o
+```
+  
+The documentation syntax is explained within the following example code:
   
 ``` c
 //! Math utilities
