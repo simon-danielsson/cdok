@@ -10,48 +10,6 @@ c_version="gnu23"
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$root"
 
-# build ------------------------------------------------------------------------
-
-c_flags_test=(
-    "-std=$c_version"
-    "-g"
-    "-O0"
-    "-DDEBUG"
-    "-fsanitize=address"
-    "-Wall"
-    "-Wextra"
-    "-Wpedantic"
-    "-Wshadow"
-    "-Werror=format-security"
-)
-
-c_flags_debug=(
-    "-std=$c_version"
-    "-g"
-    "-O0"
-    "-DDEBUG"
-    "-fsanitize=address"
-    "-Wall"
-    "-Wextra"
-    "-Wpedantic"
-    "-Wshadow"
-    "-Werror=format-security"
-)
-
-c_flags_release=(
-    "-O2"
-    "-DNDEBUG"
-    "-Wextra"
-)
-
-cd $root/tools/nob/
-cc nob.c -o nob
-
-IFS=" "
-
-c_flags="${c_flags_test[*]}"
-./nob "$root/src" $c_flags
-
 current_date=$(date +"%F")
 
 latest_git_commit=$(git log -1 --format='%ad' --date=format:'%d %b %Y')
@@ -68,14 +26,58 @@ get_version() {
 }
 VERSION="$(get_version)"
 
-mkdir -p $root/build
-bin_name=$name-$VERSION-test-$git_head_hash_short
-mv main $root/build/$bin_name
+# build ------------------------------------------------------------------------
 
-# launch -----------------------------------------------------------------------
+c_flags_test=(
+    "-std=$c_version" "-g" "-O0" "-DDEBUG" "-fsanitize=address"
+    "-Wall" "-Wextra" "-Wpedantic" "-Wshadow" "-Werror=format-security"
+)
 
-cd $root
-mkdir -p gen
-rm $root/gen/*
-./build/$bin_name -s $root/src -d $root/gen -o
+c_flags_debug=(
+    "-std=$c_version" "-g" "-O0" "-DDEBUG" "-fsanitize=address" "-Wall"
+    "-Wextra" "-Wpedantic" "-Wshadow" "-Werror=format-security"
+)
+
+c_flags_release=(
+    "-O2" "-DNDEBUG" "-Wextra"
+)
+
+# arguments --------------------------------------------------------------------
+
+debug_dir="$root/build/debug"
+mkdir -p $debug_dir
+build_debug() {
+    IFS=" "
+    cd $root/tools/nob/; cc nob.c -o nob
+    c_flags="${c_flags_debug[*]}"
+    ./nob "$root/src" $c_flags
+
+    bin_name=$name-$VERSION-debug-$git_head_hash_short
+    mv main $debug_dir/$bin_name
+    cd $root
+    rm -rf $root/gen; mkdir -p $root/gen
+    $debug_dir/$bin_name -s $root/src -d $root/gen -o
+}
+
+if [ -z "$1" ]; then
+    # if no arguments
+  build_debug
+else
+  case "$1" in
+    release)
+        build_release
+      ;;
+    debug)
+      build_debug
+      ;;
+    test)
+      build_test
+      ;;
+    *)
+      echo "Error: unknown argument '$1'"
+      exit 1
+      ;;
+  esac
+fi
+
 
