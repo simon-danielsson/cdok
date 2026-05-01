@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -xe
+set -e
 
 # variables --------------------------------------------------------------------
 
@@ -75,6 +75,7 @@ mv main $root/build/$bin_name
 # launch -----------------------------------------------------------------------
 
 cd $root
-mkdir gen
-./build/$bin_name -s ./src -d ./gen
+mkdir -p gen
+rm $root/gen/*
+./build/$bin_name -s $root/src -d $root/gen -o
 
