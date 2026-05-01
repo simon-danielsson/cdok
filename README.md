@@ -19,11 +19,6 @@
   
 cdok generates documentation from c source code. It generates a static html page you can browse, similar to the 'cargo doc' system from Rust. The syntax is simple to understand and is explained in the usage section.
   
-Prerequisites:  
-- git  
-- curl  
-- a C compiler  
-  
 > [!IMPORTANT]  
 > 1. Only support for unix systems.
 > 2. Since cdok is heavily opinionated and built for my own specific workflow, I can't
