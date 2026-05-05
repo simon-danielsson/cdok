@@ -1,5 +1,7 @@
 *.psd
 .DS_Store
+notes.md
+/build/*
 /gen
 /gen/*.html
-      nvim.log
+nvim.log

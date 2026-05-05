@@ -440,8 +440,6 @@ void gen_file_item_html(DocItemList *dil, char *output_path) {
             fprintf(fp, "<p>%s</p>\n", groups[i].file_header.descr);
         }
 
-        // TODO: the code part of a file page should just be the entire file
-
         FILE *codepr = fopen(groups[i].file_path, "rb");
         if (codepr) {
             // get file size
